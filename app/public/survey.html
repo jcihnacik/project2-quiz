@@ -53,92 +53,37 @@
     <select id="q3">
       
       <option value="1">Well, I think I've read at least one book?</option>
-      <option value="2">I've been too busy writing political manifestos to read!</option>
+      <option value="2">I'm too busy gallavanting around, I haven't got the time to sit and read.</option>
       <option value="3">At least one novel a week!</option>
-      <option value="4">4</option>
-      <option value="5">5 (Strongly Agree)</option>
+      <option value="4">I don't read--I have a servant read me the news every morning. Her name is Alexa.</option>
+      
     </select>
 
 
     <h3><strong>Question 4</strong></h3>
-    <h4>Cold doesn't bother </h4>
+    <h4>When it comes to fashion, you could say... </h4>
     <select id="q4">
       
-      <option value="1">1 (Strongly Disagree)</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5 (Strongly Agree)</option>
+      <option value="1">I dress to impress all day, every day.</option>
+      <option value="2">I'm happiest in sweats. Please don't make me put on real pants!</option>
+      <option value="3">I don't like to call attention to myself-- my stle is pretty casual.</option>
+      <option value="4">I'm pretty eclectic! I have fun expressing myself through clothing.</option>
     </select>
 
 
     <h3><strong>Question 5</strong></h3>
-    <h4>People can rarely upset you.</h4>
+    <h4>My favorite element is...</h4>
     <select id="q5">
       
-      <option value="1">1 (Strongly Disagree)</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5 (Strongly Agree)</option>
-    </select>
-
-
-    <h3><strong>Question 6</strong></h3>
-    <h4>It is often difficult for you to relate to other people’s feelings.</h4>
-    <select id="q6">
+      <option value="1">Water</option>
+      <option value="2">Fire</option>
+      <option value="3">Earth</option>
+      <option value="4">Air</option>
       
-      <option value="1">1 (Strongly Disagree)</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5 (Strongly Agree)</option>
     </select>
 
 
-    <h3><strong>Question 7</strong></h3>
-    <h4>In a discussion, truth should be more important than people’s sensitivities.</h4>
-    <select id="q7">
-      
-      <option value="1">1 (Strongly Disagree)</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5 (Strongly Agree)</option>
-    </select>
-
-    <h3><strong>Question 8</strong></h3>
-    <h4>You rarely get carried away by fantasies and ideas.</h4>
-    <select id="q8">
-      
-      <option value="1">1 (Strongly Disagree)</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5 (Strongly Agree)</option>
-    </select>
-
-    <h3><strong>Question 9</strong></h3>
-    <h4>You think that everyone’s views should be respected regardless of whether they are supported by facts or not.</h4>
-    <select id="q9">
-      
-      <option value="1">1 (Strongly Disagree)</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5 (Strongly Agree)</option>
-    </select>
-
-    <h3><strong>Question 10</strong></h3>
-    <h4>You feel more energetic after spending time with a group of people.</h4>
-    <select id="q10">
-      
-      <option value="1">1 (Strongly Disagree)</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5 (Strongly Agree)</option>
-    </select>
+    
 
     <br>
     <br>
@@ -159,11 +104,11 @@
       <div class="modal-content">
         <div class="modal-header">
           <button class="close" data-dismiss="modal">&times;</button>
-          <h2 class="modal-title"><strong>Best Match</strong></h2>
+          <h2 class="modal-title"><strong>You could be...</strong></h2>
         </div>
         <div class="modal-body">
           <h2 id="match-name"></h2>
-          <img id="match-img" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="">
+          <p id="match-bio"></p>
         </div>
         <div class="modal-footer">
           <button class="btn btn-default" data-dismiss="modal">Close</button>
@@ -221,28 +166,23 @@
       if (validateForm()) {
         // Create an object for the user"s data
         var userData = {
-          name: $("#name").val(),
-          photo: $("#photo").val(),
+         
           scores: [
             $("#q1").val(),
             $("#q2").val(),
             $("#q3").val(),
             $("#q4").val(),
-            $("#q5").val(),
-            $("#q6").val(),
-            $("#q7").val(),
-            $("#q8").val(),
-            $("#q9").val(),
-            $("#q10").val()
+            $("#q5").val()
+            
           ]
         };
 
         // AJAX post the data to the friends API.
-        $.post("/api/friends", userData, function(data) {
+        $.post("/api/characters", userData, function(data) {
 
           // Grab the result from the AJAX post so that the best match's name and photo are displayed.
           $("#match-name").text(data.name);
-          $("#match-img").attr("src", data.photo);
+          $("#match-bio").text(data.bio);
 
           // Show the modal with the best match
           $("#results-modal").modal("toggle");
